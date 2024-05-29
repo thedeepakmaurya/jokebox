@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './index.css';
+import Header from './components/Header';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+import Home from './components/Home';
+import Error from './components/Error';
+import About from './components/About';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import Form from './components/Form';
+import BlogContainer from './components/BlogContainer';
+import BlogPage from './components/BlogPage';
+
+const Layout = () => (
+  <>
+    <Header />
+    <Outlet />
+    <Footer />
+  </>
+);
+
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: 'about',
+        element: <About />
+      },
+      {
+        path: 'contact',
+        element: <Contact />
+      },
+      {
+        path: 'blog',
+        element: <BlogContainer />,
+      },
+      {
+        path: 'form',
+        element: <Form />
+      },
+      {
+        path: 'blog/:blogId',
+        element: <BlogPage/>
+      }
+    ]
+  }
+]);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={appRouter} />
   );
 }
 
