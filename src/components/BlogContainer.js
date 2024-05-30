@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Blog from './Blog';
 import { BLOGS_URL } from '../utils/config';
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
 
 const BlogContainer = () => {
 
@@ -29,7 +30,9 @@ const BlogContainer = () => {
         setFilteredBlogs(json.posts)
     }
 
-    return (
+    
+
+    return blogs.length===0 ? (<Loading/>) : (
         <>
             <div className='sticky top-16 pb-2 bg-white flex justify-center items-center'>
                 <input className='border border-zinc-400 p-1 w-60 outline-none mr-2' type='text' placeholder='search keyword..' value={searchText} onChange={(e) => setSearchText(e.target.value)} />
